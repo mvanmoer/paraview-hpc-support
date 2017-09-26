@@ -9,7 +9,8 @@
           <Range type="int" min="1025" max="65535" step="1" default="11111"/>
         </Option>
         <Option name="VERSION" label="ParaView version -- use module number" save="true">
-          <Enumeration default="4.4.0">
+          <Enumeration default=".5.3.0-interactive">
+            <Entry value=".5.3.0-interactive" label="5.3.0"/>
             <Entry value="4.4.0" label="4.4.0"/>
             <Entry value="4.3.1" label="4.3.1"/>
             <Entry value="4.1.0" label="4.1.0"/>
