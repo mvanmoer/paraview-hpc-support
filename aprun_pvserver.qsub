@@ -17,7 +17,7 @@ $NCAT -l $MOM_HOST $MOM_PORT --sh-exec="$NCAT $LOGIN_HOST $LOGIN_PORT" &
 . /opt/modules/default/init/bash
 module load paraview/$PV_VERSION
 
-if [ $PV_VERSION = "5.6.0" ]; then
+if [ $PV_VERSION = ".5.6.0-interactive" ] || [ $PV_VERSION = "5.6.0" ]; then
     aprun -n $NP pvserver --reverse-connection --force-offscreen-rendering --server-port=$MOM_PORT --client-host=$MOM_HOST --connect-id=$CONNECT_ID
 else
     aprun -n $NP pvserver --reverse-connection --use-offscreen-rendering --server-port=$MOM_PORT --client-host=$MOM_HOST --connect-id=$CONNECT_ID
