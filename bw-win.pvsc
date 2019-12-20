@@ -2,7 +2,7 @@
   <Server name="NCSA Blue Waters from Windows client" resource="csrc://">
     <CommandStartup>
       <Options>
-        <Option name="LOGIN_HOST" label="Login Node (RSA or DUO)" save="true">
+        <Option name="LOGIN_NODE" label="Login Node (RSA or DUO)" save="true">
             <String default="bw-duo.ncsa.illinois.edu" />
         </Option>
         <Option name="REMOTE_USER" label="Blue Waters username" save="true">
@@ -67,7 +67,7 @@
           <Argument value="-t"/>
           <Argument value="-R"/>
           <Argument value="$PV_SERVER_PORT$:localhost:$PV_SERVER_PORT$"/>
-          <Argument value="$REMOTE_USER$@h2ologin.ncsa.illinois.edu"/>
+          <Argument value="$REMOTE_USER$@$LOGIN_NODE$"/>
           <Argument value="/sw/xe/paraview/create_pvserver_job.sh"/>
           <Argument value="$JOBNAME$"/>
           <Argument value="$EMAILADDRESS$"/>
