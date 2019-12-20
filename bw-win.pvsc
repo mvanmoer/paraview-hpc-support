@@ -2,6 +2,9 @@
   <Server name="NCSA Blue Waters from Windows client" resource="csrc://">
     <CommandStartup>
       <Options>
+        <Option name="LOGIN_HOST" label="Login Node (RSA or DUO)" save="true">
+            <String default="bw-duo.ncsa.illinois.edu" />
+        </Option>
         <Option name="REMOTE_USER" label="Blue Waters username" save="true">
           <String default=""/>
         </Option>
