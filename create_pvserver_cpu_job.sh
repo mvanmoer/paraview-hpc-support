@@ -16,9 +16,7 @@
 # uncomment next line for debugging.
 #set -x
 
-# Grab args passed over tunnel. The exported ones are used by the
-# qsub script. The non-exported are used by the qsub command line.
-echo "Args recieved from ParaView client/xterm/ssh: "
+echo "Args recieved from ParaView client: "
 echo --job-name:        $1 
 echo --mail-user:       $2 
 echo --account:         $3 
