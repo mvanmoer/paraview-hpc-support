@@ -79,7 +79,7 @@ if [ -f "$PVSERVER_JOB" ]; then
                         if [[ "$RUNSTATUS" == "R" && $RUNNING == "false" ]]; then
                                 echo "waiting for pvserver to start ..."
                                 sleep 20
-                                # this doesn't resolve multiple nodes correctly
+                                # BUG this doesn't resolve multiple nodes correctly
                                 COMPUTENODE=$(squeue -j $JOB_ID --noheader --format="%N")
                                 ssh -t -N -R $LOGIN_PORT:localhost:$CLIENT_PORT $COMPUTENODE &
                                 RUNNING=true
