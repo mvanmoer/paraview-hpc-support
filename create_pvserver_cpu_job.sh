@@ -34,7 +34,7 @@ TIME=$6
 CLIENT_PORT=$7
 CONNECT_ID=$8
 
-let NP=$(( NODES * NTASKS_PER_NODE ))
+VERSION=5.11.2.osmesa.x86_64
 
 # Grab login node hostname
 LOGIN_HOST=`/bin/hostname`
