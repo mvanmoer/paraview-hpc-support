@@ -77,7 +77,7 @@ if [ -f "$PVSERVER_JOB" ]; then
                         fi
                         RUNSTATUS=$(squeue -j $JOB_ID --noheader --format="%t")
                         if [[ "$RUNSTATUS" == "R" && $RUNNING == "false" ]]; then
-                                echo "sleeping 20 ..."
+                                echo "waiting for pvserver to start ..."
                                 sleep 20
                                 # this doesn't resolve multiple nodes correctly
                                 COMPUTENODE=$(squeue -j $JOB_ID --noheader --format="%N")
