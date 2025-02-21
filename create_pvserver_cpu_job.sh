@@ -1,15 +1,19 @@
 #!/bin/bash
-# modified from: 
-# http://www.paraview.org/Wiki/ParaView:Server_Configuration
-# and with ideas from:
-# https://github.com/burlen/pvserver-configs
 
-# paraview client on remote workstation launches an xterm which
-# ssh reverse-tunnels into login node and executes this script.
-# This script accepts args from ssh, submits a job, then once
-# the job is active, starts a new reverse ssh tunnel to the
-# lead compute node.
+# ParaView client on remote workstation uses delta-cpu.pvsc to configure a
+# client-server reverse connection. ParaView then:
+# 1. searches for installed terminal and ssh applications
+# 2. connects over ssh and executes this script
 
+# This script:
+# 1. submits a SLURM job based on the configuration variables received over ssh
+# 2. checks squeue every 10 seconds for the job status.
+# 3. once running it makes a reverse ssh tunnel to the compute node
+
+# The SLURM job is created as a HEREDOC which loads the correct paraview
+# module and launches pvserver with mpiexec.
+
+# uncomment next line for debugging.
 #set -x
 
 # Grab args passed over tunnel. The exported ones are used by the
