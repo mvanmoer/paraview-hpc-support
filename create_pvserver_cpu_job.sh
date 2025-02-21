@@ -17,30 +17,22 @@
 #set -x
 
 echo "Args recieved from ParaView client: "
-echo --job-name:        $1 
-echo --mail-user:       $2 
-echo --account:         $3 
-echo --partition:       $4 
-echo --nodes:           $5 
-echo --ntasks-per-node: $6 
-echo --time:            $7 
-echo PORT:              $8
-echo CONNECT ID:        $9
+echo --job-name:        $1
+echo --account:         $2
+echo --partition:       $3
+echo --nodes:           $4
+echo --cpus-per-task:   $5
+echo --time:            $6
+echo PORT:              $7
+echo CONNECT ID:        $8
 JOB_NAME=$1
-MAIL_USER=$2
-ACCOUNT=$3
-PARTITION=$4
-NODES=$5
-NTASKS_PER_NODE=$6
-TIME=$7
-CLIENT_PORT=$8
-CONNECT_ID=$9
-
-if [[ "$PARTITION" == "cpu" ]]; then
-        VERSION=5.11.2.osmesa.x86_64
-else
-        VERSION=5.11.2.egl.cuda
-fi
+ACCOUNT=$2
+PARTITION=$3
+NODES=$4
+CPUS_PER_TASK=$5
+TIME=$6
+CLIENT_PORT=$7
+CONNECT_ID=$8
 
 let NP=$(( NODES * NTASKS_PER_NODE ))
 
