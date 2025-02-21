@@ -1,5 +1,5 @@
 <Servers>
-  <Server name="NCSA Delta CPU (new style)" resource="csrc://login.delta.ncsa.illinois.edu">
+  <Server name="NCSA Delta CPU" resource="csrc://login.delta.ncsa.illinois.edu">
     <CommandStartup>
       <Options>
 	    <Option name="REMOTE_USER" label="Delta username" save="true">
