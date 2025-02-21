@@ -1,0 +1,56 @@
+<Servers>
+  <Server name="NCSA Delta CPU (new style)" resource="csrc://login.delta.ncsa.illinois.edu">
+    <CommandStartup>
+      <Options>
+	    <Option name="REMOTE_USER" label="Delta username" save="true">
+          <String default=""/>
+        </Option>
+	    <Option name="PV_SERVER_PORT" label="Server Port">
+          <Range type="int" min="11111" max="65535" step="1" default="random"/>
+        </Option>
+        <Option name="JOBNAME" label="--job-name" save="true">
+          <String defualt=""/>
+        </Option>
+        <Option name="MAILUSER" label="--mail-user" save="true">
+          <String default=""/>
+        </Option>
+        <Option name="ACCOUNT" label="--account" save="true">
+          <String default=""/>
+        </Option>
+        <Option name="PARTITION" label="--partition" readonly="true">
+	      <String default="cpu" />
+        </Option>
+        <Option name="NODES" label="--nodes" save="true">
+          <Range type="int" min="1" max="132" step="1" default="1" />
+        </Option>
+        <Option name="NTASKSPERNODE" label="--ntasks-per-node" save="true">
+          <Range type="int" min="1" max="128" step="1" default="16" />
+        </Option>
+        <Option name="TIME" label="--time" save="true">
+          <String default="HH:MM:SS"/>
+        </Option>
+        <Option name="PV_CONNECT_ID" label="Connection ID" readonly="true">
+          <Range type="int" min="1" max="65535" step="1" default="random"/>
+        </Option>
+      </Options>
+      <SSHCommand exec="/sw/external/kitware/ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64/create_pvserver_cpu_job.sh" delay="5">
+        <SSHConfig user="mvanmoer">
+          <Terminal/>
+          <PortForwarding/>
+          <SSH exec="/usr/bin/ssh"/>
+        </SSHConfig>
+        <Arguments>
+	      <Argument value="$JOBNAME$"/>
+          <Argument value="$MAILUSER$"/>
+          <Argument value="$ACCOUNT$"/>
+          <Argument value="$PARTITION$"/>
+          <Argument value="$NODES$"/>
+          <Argument value="$NTASKSPERNODE$" />
+          <Argument value="$TIME$"/>
+          <Argument value="$PV_SERVER_PORT$"/>	
+          <Argument value="$PV_CONNECT_ID$"/>
+        </Arguments>
+      </SSHCommand>
+    </CommandStartup>
+  </Server>
+</Servers>
