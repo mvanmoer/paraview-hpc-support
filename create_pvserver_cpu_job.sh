@@ -41,7 +41,7 @@ LOGIN_HOST=`/bin/hostname`
 LOGIN_PORT=$((CLIENT_PORT+1))
 
 now=`date +%Y-%m-%d-%H.%M.%S`
-PVSERVER_JOB=$HOME/pvserver-job-$now.sbatch
+PVSERVER_JOB=$HOME/$JOB_NAME-$now.sbatch
 
 # Create job file to submit
 (
