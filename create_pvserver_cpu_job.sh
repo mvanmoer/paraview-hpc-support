@@ -50,14 +50,14 @@ cat <<EOF
 #SBATCH --account=$ACCOUNT
 #SBATCH --partition=$PARTITION
 #SBATCH --nodes=$NODES
-#SBATCH --ntasks-per-node=$NTASKS_PER_NODE
+#SBATCH --cpus-per-task=$CPUS_PER_TASK
 #SBATCH --time=$TIME
 
 hostname
 module load paraview/$VERSION
 which mpiexec
 
-mpiexec -n $NP pvserver --reverse-connection --server-port=$LOGIN_PORT --connect-id=$CONNECT_ID --force-offscreen-rendering
+srun pvserver --reverse-connection --server-port=$LOGIN_PORT --connect-id=$CONNECT_ID --force-offscreen-rendering
 EOF
 ) > $PVSERVER_JOB
 
