@@ -2,7 +2,7 @@
   <Server name="NCSA Delta CPU" resource="csrc://login.delta.ncsa.illinois.edu">
     <CommandStartup>
       <Options>
-	    <Option name="REMOTE_USER" label="Delta username" save="true">
+	    <Option name="USERNAME" label="Delta username" save="true">
             <String default="username"/>
         </Option>
         <Option name="JOBNAME" label="--job-name" save="true">
@@ -31,7 +31,7 @@
         </Option>
       </Options>
       <SSHCommand exec="/sw/external/kitware/ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64/create_pvserver_cpu_job.sh" delay="5">
-        <SSHConfig user="mvanmoer">
+        <SSHConfig user=$USERNAME$>
           <Terminal/>
           <PortForwarding/>
           <SSH exec="/usr/bin/ssh"/>
