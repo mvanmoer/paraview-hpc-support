@@ -48,7 +48,6 @@ PVSERVER_JOB=$HOME/$JOB_NAME-$now.sbatch
 cat <<EOF
 #!/bin/bash
 #SBATCH --account=$ACCOUNT
-#SBATCH --mail-user=$MAIL_USER
 #SBATCH --partition=$PARTITION
 #SBATCH --nodes=$NODES
 #SBATCH --ntasks-per-node=$NTASKS_PER_NODE
