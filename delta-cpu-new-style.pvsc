@@ -3,19 +3,13 @@
     <CommandStartup>
       <Options>
 	    <Option name="REMOTE_USER" label="Delta username" save="true">
-          <String default=""/>
-        </Option>
-	    <Option name="PV_SERVER_PORT" label="Server Port">
-          <Range type="int" min="11111" max="65535" step="1" default="random"/>
+            <String default="username"/>
         </Option>
         <Option name="JOBNAME" label="--job-name" save="true">
-          <String defualt=""/>
-        </Option>
-        <Option name="MAILUSER" label="--mail-user" save="true">
-          <String default=""/>
+          <String default="paraview-csrc"/>
         </Option>
         <Option name="ACCOUNT" label="--account" save="true">
-          <String default=""/>
+            <String default="account"/>
         </Option>
         <Option name="PARTITION" label="--partition" readonly="true">
 	      <String default="cpu" />
@@ -26,8 +20,11 @@
         <Option name="NTASKSPERNODE" label="--ntasks-per-node" save="true">
           <Range type="int" min="1" max="128" step="1" default="16" />
         </Option>
-        <Option name="TIME" label="--time" save="true">
-          <String default="HH:MM:SS"/>
+        <Option name="TIME" label="--time (HH:MM:SS)" save="true">
+            <String default="00:30:00"/>
+        </Option>
+	    <Option name="PV_SERVER_PORT" label="Server Port" readonly="true">
+         <Range type="int" min="11111" max="65535" step="1" default="random"/>
         </Option>
         <Option name="PV_CONNECT_ID" label="Connection ID" readonly="true">
           <Range type="int" min="1" max="65535" step="1" default="random"/>
@@ -41,7 +38,6 @@
         </SSHConfig>
         <Arguments>
 	      <Argument value="$JOBNAME$"/>
-          <Argument value="$MAILUSER$"/>
           <Argument value="$ACCOUNT$"/>
           <Argument value="$PARTITION$"/>
           <Argument value="$NODES$"/>
