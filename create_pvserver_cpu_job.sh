@@ -38,6 +38,7 @@ VERSION=5.11.2.osmesa.x86_64
 
 # Grab login node hostname
 LOGIN_HOST=`/bin/hostname`
+echo "connected to: $LOGIN_HOST"
 LOGIN_PORT=$((CLIENT_PORT+1))
 
 now=`date +%Y-%m-%d-%H.%M.%S`
