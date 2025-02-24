@@ -30,7 +30,7 @@
           <Range type="int" min="1" max="65535" step="1" default="random"/>
         </Option>
       </Options>
-      <SSHCommand exec="/sw/external/kitware/ParaView-5.11.2-osmesa-MPI-Linux-Python3.9-x86_64/create_pvserver_cpu_job.sh" delay="5">
+      <SSHCommand exec="/sw/external/kitware/create_pvserver_cpu_job.sh" delay="5">
         <SSHConfig user="$USERNAME$">
           <Terminal/>
           <PortForwarding/>
