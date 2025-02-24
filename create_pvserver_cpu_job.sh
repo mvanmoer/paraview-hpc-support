@@ -66,34 +66,35 @@ EOF
 RUNNING=false
 
 if [ -f "$PVSERVER_JOB" ]; then
-        JOB_ID=$(sbatch $PVSERVER_JOB | cut -d' ' -f4)
-        ERRNO=$?
-        if [[ $ERRNO == 0 ]]; then
-                echo "Job submitted."
-                # could I change this to while job in queue?
-                while :
-                do
-                        if [[ $RUNNING == "false" ]]; then
-                                echo "waiting for job to start..."
-                        fi
-                        RUNSTATUS=$(squeue -j $JOB_ID --noheader --format="%t")
-                        if [[ "$RUNSTATUS" == "R" && $RUNNING == "false" ]]; then
-                                echo "waiting for pvserver to start ..."
-                                sleep 20
-                                # BUG this doesn't resolve multiple nodes correctly
-                                COMPUTENODE=$(squeue -j $JOB_ID --noheader --format="%N")
-                                ssh -t -N -R $LOGIN_PORT:localhost:$CLIENT_PORT $COMPUTENODE &
-                                RUNNING=true
-                        fi
-                        sleep 10
-                        # need to capture this output somehow and switch from running
-                        squeue -j $JOB_ID
-                done
-        else
-                echo "ERROR $ERRNO: in job submission, job not submitted."
-        fi
+    JOB_ID=$(sbatch $PVSERVER_JOB | cut -d' ' -f4)
+    ERRNO=$?
+    if [[ $ERRNO == 0 ]]; then
+        echo "Job submitted."
+        while :
+        do
+            if [[ $RUNNING == "false" ]]; then
+                echo "waiting for job to start..."
+            fi
+
+            RUNSTATUS=$(squeue -j $JOB_ID --noheader --format="%t")
+
+            if [[ "$RUNSTATUS" == "R" && $RUNNING == "false" ]]; then
+                echo "waiting for pvserver to start ..."
+                sleep 20
+                # BUG this doesn't resolve multiple nodes correctly
+                COMPUTENODE=$(squeue -j $JOB_ID --noheader --format="%N")
+                ssh -t -N -R $LOGIN_PORT:localhost:$CLIENT_PORT $COMPUTENODE &
+                RUNNING=true
+            fi
+            sleep 10
+            # need to capture this output somehow and switch from running
+            squeue -j $JOB_ID
+        done
+    else
+        echo "ERROR $ERRNO: in job submission, job not submitted."
+    fi
 else
-        echo "problem creating job file: \"$PVSERVER_JOB\""
+    echo "problem creating job file: \"$PVSERVER_JOB\""
 fi
 
 
