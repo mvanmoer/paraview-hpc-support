@@ -69,26 +69,28 @@ if [ -f "$PVSERVER_JOB" ]; then
     JOB_ID=$(sbatch $PVSERVER_JOB | cut -d' ' -f4)
     ERRNO=$?
     if [[ $ERRNO == 0 ]]; then
-        echo "Job submitted."
+        echo "Job submitted, waiting to start..."
+        squeue -j $JOB_ID
+
         while :
         do
-            if [[ $RUNNING == "false" ]]; then
-                echo "waiting for job to start..."
-            fi
-
             RUNSTATUS=$(squeue -j $JOB_ID --noheader --format="%t")
 
-            if [[ "$RUNSTATUS" == "R" && $RUNNING == "false" ]]; then
-                echo "waiting for pvserver to start ..."
+            if [[ $RUNSTATUS == "R" && $RUNNING == "false" ]]; then
+                echo "job started, waiting for pvserver to start ..."
+                # sleep is to make sure pvserver has started before trying to connect
                 sleep 20
-                # BUG this doesn't resolve multiple nodes correctly
-                COMPUTENODE=$(squeue -j $JOB_ID --noheader --format="%N")
+                # single node jobs look like cn###
+                # multi-node jobs look like cn[###,...,###] 
+                COMPUTENODE=$(squeue -j $JOB_ID --noheader --format="%N" | tr -d '[' | cut -c1-5)
                 ssh -t -N -R $LOGIN_PORT:localhost:$CLIENT_PORT $COMPUTENODE &
                 RUNNING=true
             fi
-            sleep 10
-            # need to capture this output somehow and switch from running
-            squeue -j $JOB_ID
+            sleep 5
+            if [[ ! $RUNSTATUS ]]; then
+                echo "job no longer running"
+                break
+            fi
         done
     else
         echo "ERROR $ERRNO: in job submission, job not submitted."
@@ -96,7 +98,6 @@ if [ -f "$PVSERVER_JOB" ]; then
 else
     echo "problem creating job file: \"$PVSERVER_JOB\""
 fi
-
 
 echo "Exiting from $0."
 exit 0
