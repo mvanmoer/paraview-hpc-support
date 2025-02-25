@@ -58,7 +58,7 @@ hostname
 module load paraview/$VERSION
 which mpiexec
 
-srun pvserver --reverse-connection --server-port=$LOGIN_PORT --connect-id=$CONNECT_ID --force-offscreen-rendering
+mpiexec -n $NODES pvserver --reverse-connection --server-port=$LOGIN_PORT --connect-id=$CONNECT_ID --force-offscreen-rendering
 EOF
 ) > $PVSERVER_JOB
 
