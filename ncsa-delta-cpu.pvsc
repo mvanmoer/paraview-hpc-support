@@ -34,7 +34,6 @@
         <SSHConfig user="$USERNAME$">
           <Terminal/>
           <PortForwarding/>
-          <SSH exec="/usr/bin/ssh"/>
         </SSHConfig>
         <Arguments>
 	      <Argument value="$JOBNAME$"/>
