@@ -17,7 +17,7 @@
         <Option name="NODES" label="--nodes" save="true">
           <Range type="int" min="1" max="132" step="1" default="1" />
         </Option>
-        <Option name="NTASKSPERNODE" label="--ntasks-per-node" save="true">
+        <Option name="CPUSPERTASK" label="--cpus-per-task" save="true">
           <Range type="int" min="1" max="128" step="1" default="16" />
         </Option>
         <Option name="TIME" label="--time (HH:MM:SS)" save="true">
@@ -41,7 +41,7 @@
           <Argument value="$ACCOUNT$"/>
           <Argument value="$PARTITION$"/>
           <Argument value="$NODES$"/>
-          <Argument value="$NTASKSPERNODE$" />
+          <Argument value="$CPUSPERTASK$" />
           <Argument value="$TIME$"/>
           <Argument value="$PV_SERVER_PORT$"/>	
           <Argument value="$PV_CONNECT_ID$"/>
