@@ -44,6 +44,7 @@
           <Argument value="$PARTITION$"/>
           <Argument value="$NODES$"/>
           <Argument value="$CPUSPERTASK$" />
+          <Argument value="$GPUSPERNODE$" />
           <Argument value="$TIME$"/>
           <Argument value="$PV_SERVER_PORT$"/>	
           <Argument value="$PV_CONNECT_ID$"/>
