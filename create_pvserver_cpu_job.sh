@@ -35,11 +35,11 @@ CONNECT_ID=$7
 VERSION=5.11.2.osmesa.x86_64
 
 # Grab login node hostname
-LOGIN_HOST=`/bin/hostname`
+LOGIN_HOST=$(/bin/hostname)
 echo "connected to: $LOGIN_HOST"
 LOGIN_PORT=$((CLIENT_PORT+1))
 
-now=`date +%Y-%m-%d-%H.%M.%S`
+now=$(date +%Y-%m-%d-%H.%M.%S)
 PVSERVER_JOB=$HOME/$JOB_NAME-$now.sbatch
 
 # Create job file to submit
