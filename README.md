@@ -1,15 +1,15 @@
 Miscellaneous ParaView support files for HPC systems at NCSA.
 
-See the Blue Waters User Guide entry on ParaView for full details:
+See the Delta User Guide entry on ParaView for full details:
 
-https://bluewaters.ncsa.illinois.edu/paraview1
+https://docs.ncsa.illinois.edu/systems/delta/en/latest/user_guide/visualization.html#paraview
 
-Blue Waters users should first try the "Fetch Servers" option within the ParaView client. If that doesn't work, next try downloading a pvsc to your local machine and using "Load Servers" instead.
+Delta users should first try the "Fetch Servers" option within the ParaView client. If that doesn't work, next try downloading a pvsc to your local machine and using "Load Servers" instead.
 
-bw.pvsc is the client-side configuration file for establishing a remote server connection to a pvserver running on Blue Waters. Use for Linux or OS X.
+ncsa-delta-cpu.pvsc is the client-side configuration for launching a job on Delta's cpu partition. Generally speaking, you probably only want to request one node unless your data is decomposed into multiple spatial domains, each in a separate file. If that is the case, then try requesting a node per file.
 
-bw-win.pvsc should be used from Windows machines. 
+ncsa-delta-gpu.pvsc is the client-side configuration for launching a job on Delta's gpuA40x4 partition. Generally speaking, you probably only want one GPU per node, you are unlikely to see benefit from trying to use multiple GPUs per node.
 
-jyc-private.pvsc is the same, but for the limited-access JYC test system.
+The BASH scripts are what get executed to submit a SLURM job once ParaView connects to Delta. These are shown for only for completeness, users don't need to do anything with them. They are in /sw/external/kitware on Delta.
 
-The .pvsc's tell the client to launch a terminal window, which in turn executes an ssh command. The terminal window will show the prompt for entering the Blue Waters passcode and PIN to establish the ssh connection. ssh will also execute the create_pvserver_job.sh script on the head node, which will in turn submit aprun_pvserver.qsub to start the job. These scripts also configure the network tunneling to make sure that ParaView traffic will reach a client which is behind a firewall.
+The archive directory contains examples from decommisioned systems.

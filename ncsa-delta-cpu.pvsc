@@ -1,0 +1,47 @@
+<Servers>
+  <Server name="NCSA Delta CPU" resource="csrc://login.delta.ncsa.illinois.edu">
+    <CommandStartup>
+      <Options>
+	    <Option name="USERNAME" label="Delta username" save="true">
+            <String default="username"/>
+        </Option>
+        <Option name="JOBNAME" label="--job-name" save="true">
+          <String default="paraview-csrc"/>
+        </Option>
+        <Option name="ACCOUNT" label="--account" save="true">
+            <String default="account"/>
+        </Option>
+        <Option name="NODES" label="--nodes" save="true">
+          <Range type="int" min="1" max="132" step="1" default="1" />
+        </Option>
+        <Option name="CPUSPERTASK" label="--cpus-per-task" save="true">
+          <Range type="int" min="1" max="128" step="1" default="16" />
+        </Option>
+        <Option name="TIME" label="--time (HH:MM:SS)" save="true">
+            <String default="00:30:00"/>
+        </Option>
+	    <Option name="PV_SERVER_PORT" label="Server Port" readonly="true">
+         <Range type="int" min="11111" max="65535" step="1" default="random"/>
+        </Option>
+        <Option name="PV_CONNECT_ID" label="Connection ID" readonly="true">
+          <Range type="int" min="1" max="65535" step="1" default="random"/>
+        </Option>
+      </Options>
+      <SSHCommand exec="/sw/external/kitware/create_pvserver_cpu_job.sh" delay="5">
+        <SSHConfig user="$USERNAME$">
+          <Terminal/>
+          <PortForwarding/>
+        </SSHConfig>
+        <Arguments>
+	      <Argument value="$JOBNAME$"/>
+          <Argument value="$ACCOUNT$"/>
+          <Argument value="$NODES$"/>
+          <Argument value="$CPUSPERTASK$" />
+          <Argument value="$TIME$"/>
+          <Argument value="$PV_SERVER_PORT$"/>	
+          <Argument value="$PV_CONNECT_ID$"/>
+        </Arguments>
+      </SSHCommand>
+    </CommandStartup>
+  </Server>
+</Servers>
