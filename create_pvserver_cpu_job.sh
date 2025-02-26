@@ -17,22 +17,20 @@
 #set -x
 
 echo "Args recieved from ParaView client: "
-echo --job-name:        $1
-echo --account:         $2
-echo --partition:       $3
-echo --nodes:           $4
-echo --cpus-per-task:   $5
-echo --time:            $6
-echo PORT:              $7
-echo CONNECT ID:        $8
+echo "--job-name:        $1"
+echo "--account:         $2"
+echo "--nodes:           $3"
+echo "--cpus-per-task:   $4"
+echo "--time:            $5"
+echo "PORT:              $6"
+echo "CONNECT ID:        $7"
 JOB_NAME=$1
 ACCOUNT=$2
-PARTITION=$3
-NODES=$4
-CPUS_PER_TASK=$5
-TIME=$6
-CLIENT_PORT=$7
-CONNECT_ID=$8
+NODES=$3
+CPUS_PER_TASK=$4
+TIME=$5
+CLIENT_PORT=$6
+CONNECT_ID=$7
 
 VERSION=5.11.2.osmesa.x86_64
 
@@ -49,7 +47,7 @@ PVSERVER_JOB=$HOME/$JOB_NAME-$now.sbatch
 cat <<EOF
 #!/bin/bash
 #SBATCH --account=$ACCOUNT
-#SBATCH --partition=$PARTITION
+#SBATCH --partition=cpu
 #SBATCH --nodes=$NODES
 #SBATCH --cpus-per-task=$CPUS_PER_TASK
 #SBATCH --time=$TIME
