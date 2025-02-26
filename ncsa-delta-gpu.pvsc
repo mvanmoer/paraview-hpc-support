@@ -11,9 +11,6 @@
         <Option name="ACCOUNT" label="--account" save="true">
             <String default="account"/>
         </Option>
-        <Option name="PARTITION" label="--partition" readonly="true">
-	      <String default="gpuA40x4" />
-        </Option>
         <Option name="NODES" label="--nodes" save="true">
           <Range type="int" min="1" max="100" step="1" default="1" />
         </Option>
@@ -41,7 +38,6 @@
         <Arguments>
 	      <Argument value="$JOBNAME$"/>
           <Argument value="$ACCOUNT$"/>
-          <Argument value="$PARTITION$"/>
           <Argument value="$NODES$"/>
           <Argument value="$CPUSPERTASK$" />
           <Argument value="$GPUSPERNODE$" />
