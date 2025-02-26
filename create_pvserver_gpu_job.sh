@@ -79,19 +79,24 @@ if [[ -f $PVSERVER_JOB ]]; then
 
             if [[ $RUNSTATUS == "R" && $RUNNING == "false" ]]; then
                 echo "job started, waiting for pvserver to start ..."
-                # sleep is to make sure pvserver has started before trying to connect
-                sleep 20
+
                 # single node jobs look like gpua###
                 # multi-node jobs look like gpua[###,...,###] 
                 COMPUTENODE=$(squeue -j $JOB_ID --noheader --format="%N" | tr -d '[' | cut -c1-7)
-                ssh -t -N -R $LOGIN_PORT:localhost:$CLIENT_PORT $COMPUTENODE &
-                RUNNING=true
-            fi
-            sleep 5
-            if [[ ! $RUNSTATUS ]]; then
+
+                if [[ ! $COMPUTENODE ]]; then
+                    continue
+                else
+                    sleep 20
+                    echo "creating reverse ssh tunnel to compute node: $COMPUTENODE"
+                    ssh -t -N -R $LOGIN_PORT:localhost:$CLIENT_PORT $COMPUTENODE &
+                    RUNNING=true
+                fi
+            elif [[ ! $RUNSTATUS ]]; then
                 echo "job no longer running"
                 break
             fi
+            sleep 10
         done
     else
         echo "ERROR $ERRNO: in job submission, job not submitted."
