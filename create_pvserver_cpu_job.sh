@@ -58,13 +58,13 @@ which mpiexec
 
 mpiexec -n $NODES pvserver --reverse-connection --server-port=$LOGIN_PORT --connect-id=$CONNECT_ID --force-offscreen-rendering
 EOF
-) > $PVSERVER_JOB
+) > "$PVSERVER_JOB"
 
 
 RUNNING=false
 
-if [ -f "$PVSERVER_JOB" ]; then
-    JOB_ID=$(sbatch $PVSERVER_JOB | cut -d' ' -f4)
+if [[ -f $PVSERVER_JOB ]]; then
+    JOB_ID=$(sbatch "$PVSERVER_JOB" | cut -d' ' -f4)
     ERRNO=$?
     if [[ $ERRNO == 0 ]]; then
         echo "Job submitted, waiting to start..."
