@@ -1,0 +1,75 @@
+<Servers>
+  <Server name="NCSA Magnus" resource="csrc://">
+    <CommandStartup>
+      <Options>
+	<Option name="REMOTE_USER" label="Magnus username" save="true">
+          <String default=""/>
+        </Option>
+	<Option name="PV_SERVER_PORT" label="Server Port">
+          <Range type="int" min="1" max="65535" step="1" default="11111"/>
+        </Option>
+	<Option name="VERSION" label="ParaView version" readonly="true">
+	  <String default="5.2.0" />
+	</Option>    
+        <Option name="JOBNAME" label="--job-name" save="true">
+          <String defualt=""/>
+        </Option>
+        <Option name="MAILUSER" label="--mail-user" save="true">
+          <String default=""/>
+        </Option>
+        <Option name="ACCOUNT" label="--account" save="true">
+          <String default=""/>
+        </Option>
+        <Option name="PARTITION" label="--partition" readonly="true">
+	  <String default="magnus" />
+        </Option>
+	<Option name="NODES" label="--nodes" save="true">
+	  <Range type="int" min="1" max="10" step="1" default="1" />
+        </Option>
+	<Option name="NTASKSPERNODE" label="--ntasks-per-node" save="true">
+	  <Range type="int" min="1" max="40" step="1" default="1" />
+	</Option>
+	<Option name="MEMORY" label="--mem (total RAM in GB)" save="true">
+	  <Range type="int" min="4" max="64" step="2" default="4" />
+	</Option>
+        <Option name="TIME" label="--time" save="true">
+          <String default="HH:MM:SS"/>
+	</Option>
+	<Option name="SSH_EXE" label="path to ssh" save="true">
+          <File default="/usr/bin/ssh"/>
+        </Option>
+        <Option name="XTERM_PATH" label="path to terminal" save="true">
+          <File default="/usr/bin/xterm"/>
+        </Option>
+        <Option name="PV_CONNECT_ID" label="Connection ID" readonly="true">
+          <Range type="int" min="1" max="65535" step="1" default="random"/>
+        </Option>
+      </Options>
+      <Command exec="$XTERM_PATH$" timeout="0" delay="5" Arguments="0">
+        <Arguments>
+	  <Argument value="-hold"/>
+	  <Argument value="-T"/>
+	  <Argument value="ParaView $REMOTE_USER$ on Magnus"/>
+	  <Argument value="-e"/>
+          <Argument value="$SSH_EXE$"/>
+	  <Argument value="-t"/>
+          <Argument value="-R"/>
+          <Argument value="$PV_SERVER_PORT$:localhost:$PV_SERVER_PORT$"/>
+          <Argument value="$REMOTE_USER$@mghn1.ncsa.illinois.edu"/>
+          <Argument value="/usr/apps/engineering/ParaView/create_pvserver_job.sh"/>
+	  <Argument value="$JOBNAME$"/>
+          <Argument value="$MAILUSER$"/>
+          <Argument value="$ACCOUNT$"/>
+          <Argument value="$PARTITION$"/>
+          <Argument value="$NODES$"/>
+	  <Argument value="$NTASKSPERNODE$" />
+	  <Argument value="$MEMORY$" />
+          <Argument value="$TIME$"/>
+          <Argument value="$VERSION$"/>
+	  <Argument value="$PV_SERVER_PORT$"/>	
+	  <Argument value="$PV_CONNECT_ID$"/>
+        </Arguments>
+      </Command>
+    </CommandStartup>
+  </Server>
+</Servers>

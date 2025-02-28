@@ -1,0 +1,76 @@
+<Server name="Reverse connection to Forge" resource="csrc://localhost">
+  <CommandStartup>
+    <Options>
+      <Option name="MACHINE" label="Remote Machine" readonly="true">
+	<String default="forge.ncsa.illinois.edu"/>
+      </Option>
+      <Option name="SSH_USER" label="UserName" save="true">
+	<String default="mvanmoer"/>
+      </Option>
+      <Option name="SSH_EXE" label="SSH Executable" save="true">
+	<File default="ssh"/>
+      </Option>
+      <Option name="REMOTESCRIPT" label="Name of remote batch generation script">
+	<String default="~/batch_scripts/pv_rc_test.sh"/>
+      </Option>
+      <Option name="CLIENTNAME" label="The ip addr or name of client machine">
+        <String default="yes.ncsa.illinois.edu"/>
+      </Option>
+      <Option name="PV_SERVER_PORT" label="Server Port">
+	<Range type="int" min="1" max="65535" step="1" default="11111"/>
+      </Option>
+      <Option name="JOBNAME" label="Job name, PBS -N" save="true">
+	<String defualt="pv_rc"/>
+      </Option>
+      <Option name="EMAILADDRESS" label="email address, PBS -M" save="true">
+	<String default="mvanmoer@illiois.edu"/>
+      </Option>
+      <Option name="GROUP" label="Charged group, PBS -A" save="true">
+	<String default="aaa"/>
+      </Option>
+      <Option name="QUEUE" label="Queue, PBS -q" save="true">
+	<String default="debug"/>
+      </Option>
+      <Option name="NODES" label="Nodes, PBS -l nodes=" save="true">
+	<Range type="int" min="1" max="18" step="1" default="1"/>
+      </Option>
+      <Option name="PPN" label="Processors per node, PBS -l ppn=" save="true">
+	<Range type="int" min="1" max="6" step="1" default="1"/>
+      </Option>
+      <Option name="NUMHOURS" label="Number of hours to reserve" save="true">
+	<Range type="int" min="0" max="72" step="1" default="0"/>
+      </Option>
+      <Option name="MINUTES" label="Number of minutes" save="true">
+	<Range type="int" min="0" max="59" step="1" default="15"/>
+      </Option>
+      <Option name="PV_CONNECT_ID" label="Connection ID" readonly="true">
+	<Range type="int" min="1" max="65535" step="1" default="random"/>
+      </Option>
+    </Options>
+    <Command exec="$SSH_EXE$" delay="5">
+      <Arguments>
+	<Argument value="$MACHINE$"/>
+	<Argument value="-l"/>
+	<Argument value="$SSH_USER$"/>
+	<Argument value="-R"/>
+	<Argument value="11111:localhost:11111"/>
+	<!--
+	<Argument value="-i"/>
+	<Argument value=private-key-file/>
+	-->
+	<Argument value="$REMOTESCRIPT$"/>
+	<Argument value="$CLIENTNAME$"/>
+	<Argument value="$PV_SERVER_PORT$"/>
+	<Argument value="$JOBNAME$"/>
+	<Argument value="$EMAILADDRESS$"/>
+	<Argument value="$GROUP$"/>
+	<Argument value="$QUEUE$"/>
+	<Argument value="$NODES$"/>
+	<Argument value="$PPN$"/>
+	<Argument value="$NUMHOURS$"/>
+	<Argument value="$MINUTES$"/>
+	<Argument value="$PV_CONNECT_ID$"/>
+      </Arguments>
+    </Command>
+  </CommandStartup>
+</Server>

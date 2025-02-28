@@ -1,0 +1,76 @@
+<Servers>
+  <Server name="NCSA iForge" resource="csrc://">
+    <CommandStartup>
+      <Options>
+	<Option name="REMOTE_USER" label="iForge username" save="true">
+          <String default=""/>
+        </Option>
+        <Option name="LOGIN_NODE" label="Login node DNS" save="true">
+            <String default="iforge.ncsa.illinois.edu" />
+        </Option>
+	<Option name="PV_SERVER_PORT" label="Server Port">
+          <Range type="int" min="1" max="65535" step="1" default="11111"/>
+        </Option>
+	<Option name="VERSION" label="ParaView version" save="true">
+	<Enumeration default="5.2.0">
+	  <Entry value="5.2.0" label="5.2.0" />
+	  <Entry value="5.6.0" label="5.6.0" />
+	</Enumeration>
+	</Option>    
+        <Option name="JOBNAME" label="Job name, PBS -N" save="true">
+          <String defualt=""/>
+        </Option>
+        <Option name="EMAILADDRESS" label="email address, PBS -M" save="true">
+          <String default=""/>
+        </Option>
+        <Option name="GROUP" label="Charged group, PBS -A" save="true">
+          <String default=""/>
+        </Option>
+        <Option name="QUEUE" label="Queue, PBS -q" save="true">
+            <String default="" />
+        </Option>
+        <Option name="NODES" label="Nodes, PBS -l nodes=" save="true">
+          <Range type="int" min="1" max="42" step="1" default="1"/>
+        </Option>
+        <Option name="PPN" label="Processors per node, PBS -l ppn=" save="true">
+          <Range type="int" min="1" max="24" step="1" default="24"/>
+        </Option>
+        <Option name="WALLTIME" label="wall time" save="true">
+          <String default="HH:MM:SS"/>
+	</Option>
+	<Option name="SSH_EXE" label="/path/to/plink.exe" save="true">
+          <File default="plink.exe"/>
+        </Option>
+        <Option name="XTERM_PATH" label="/path/to/cmd.exe" save="true">
+          <File default="cmd.exe"/>
+        </Option>
+        <Option name="PV_CONNECT_ID" label="Connection ID" readonly="true">
+          <Range type="int" min="1" max="65535" step="1" default="random"/>
+        </Option>
+      </Options>
+      <Command exec="$XTERM_PATH$" timeout="0" delay="5" Arguments="0">
+        <Arguments>
+	  <Argument value="/K"/>
+	  <Argument value="start"/>
+	  <Argument value="ParaView launched cmd"/>
+          <Argument value="$SSH_EXE$"/>
+	  <Argument value="-t"/>
+          <Argument value="-R"/>
+          <Argument value="$PV_SERVER_PORT$:localhost:$PV_SERVER_PORT$"/>
+          <Argument value="$REMOTE_USER$@$LOGIN_NODE$"/>
+          <Argument value="/usr/apps/vis/ParaView/create_pvserver_job.sh"/>
+	  <Argument value="$JOBNAME$"/>
+          <Argument value="$EMAILADDRESS$"/>
+          <Argument value="$GROUP$"/>
+          <Argument value="$QUEUE$"/>
+          <Argument value="$NODES$"/>
+          <Argument value="$PPN$"/>
+          <Argument value="$WALLTIME$"/>
+          <Argument value="$VERSION$"/>
+	  <Argument value="$PV_SERVER_PORT$"/>	
+	  <Argument value="$PV_CONNECT_ID$"/>
+        </Arguments>
+      </Command>
+    </CommandStartup>
+  </Server>
+</Servers>
